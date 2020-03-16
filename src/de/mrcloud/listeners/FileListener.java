@@ -40,59 +40,35 @@ public class FileListener extends ListenerAdapter {
 
             }
             if (!e.getMessage().getAttachments().isEmpty()) {
-                EmbedBuilder embBuilder = new EmbedBuilder();
-                embBuilder.setColor(Color.CYAN).setTitle("Test").build();
+                if(!e.getAuthor().isBot()) {
+                    EmbedBuilder embBuilder = new EmbedBuilder();
+                    embBuilder.setColor(Color.CYAN).setTitle("Test").build();
 
-                //Holt die Anhänge der Datei
-                List<Message.Attachment> attachment = e.getMessage().getAttachments();
-                //Läd die Datei runter
-                attachment.get(0).downloadToFile();
+                    //Holt die Anhänge der Datei
+                    List<Message.Attachment> attachment = e.getMessage().getAttachments();
+                    //Läd die Datei runter
+                    attachment.get(0).downloadToFile();
 
-                //Sended die Nachricht in den Console Channel dass die Datei heruntergeladen wurde
-                console.sendMessage("Downloaded File " + "```" + attachment.get(0).getFileName() + "```").queue();
+                    //Sended die Nachricht in den Console Channel dass die Datei heruntergeladen wurde
+                    console.sendMessage("Downloaded File " + "```" + attachment.get(0).getFileName() + "```").queue();
 
-                //Pfad zur Detei in die die Namen der Dateien geschreiben werden
-                File files = new File("../Files.txt");
+                    //Pfad zur Detei in die die Namen der Dateien geschreiben werden
+                    File files = new File("../Files.txt");
 
-                String read = null;
-                String line = null;
+                    String read = null;
+                    String line = null;
 
-                try (FileWriter FileWriterName = new FileWriter(files, true);
-                     BufferedWriter Writer = new BufferedWriter(FileWriterName)) {
-
-
-
-                    if (files.exists()) {
-                        FileReader fileReader = null;
-                        try {
-                            fileReader = new FileReader(files);
-                        } catch (FileNotFoundException ex) {
-                            ex.printStackTrace();
-                        }
+                    try (FileWriter FileWriterName = new FileWriter(files, true);
+                         BufferedWriter Writer = new BufferedWriter(FileWriterName)) {
 
 
+                        Writer.newLine();
+                        Writer.write(attachment.get(0).getFileName());
 
-                    BufferedReader bufferedReader = new BufferedReader(fileReader);
-                    while ((line = bufferedReader.readLine()) != null) {
-                        read = line;
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
                     }
-
-
-
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-
-                    }
-                    Writer.newLine();
-                    Writer.write(attachment.get(0).getFileName());
-
-
-
-                } catch (IOException ex) {
-                    ex.printStackTrace();
                 }
             } else if (!message.getAuthor().isBot()) {
                 //Löscht die Nachricht wenn es keine Datei ist
