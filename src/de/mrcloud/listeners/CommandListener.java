@@ -39,7 +39,7 @@ public class CommandListener extends ListenerAdapter {
                 }
             }
         } else if (splitMsg[0].equalsIgnoreCase("&Configs")) {
-            File files = new File("Files.txt");
+            File files = new File("../Files.txt");
 
             try (FileWriter FileWriterName = new FileWriter(files, true);
                  BufferedWriter Writer = new BufferedWriter(FileWriterName)) {

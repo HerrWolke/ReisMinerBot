@@ -40,21 +40,27 @@ public class FileListener extends ListenerAdapter {
 
             }
             if (!e.getMessage().getAttachments().isEmpty()) {
-                int LineNumber = 0;
-                List<Message.Attachment> attachment = e.getMessage().getAttachments();
-                attachment.get(0).downloadToFile();
                 EmbedBuilder embBuilder = new EmbedBuilder();
                 embBuilder.setColor(Color.CYAN).setTitle("Test").build();
+
+                //Holt die Anhänge der Datei
+                List<Message.Attachment> attachment = e.getMessage().getAttachments();
+                //Läd die Datei runter
+                attachment.get(0).downloadToFile();
+
+                //Sended die Nachricht in den Console Channel dass die Datei heruntergeladen wurde
                 console.sendMessage("Downloaded File " + "```" + attachment.get(0).getFileName() + "```").queue();
 
+                //Pfad zur Detei in die die Namen der Dateien geschreiben werden
+                File files = new File("../Files.txt");
 
-                File files = new File("Files.txt");
+                String read = null;
+                String line = null;
 
                 try (FileWriter FileWriterName = new FileWriter(files, true);
                      BufferedWriter Writer = new BufferedWriter(FileWriterName)) {
 
-                    String read = null;
-                    String line = null;
+
 
                     if (files.exists()) {
                         FileReader fileReader = null;
@@ -69,8 +75,6 @@ public class FileListener extends ListenerAdapter {
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
                     while ((line = bufferedReader.readLine()) != null) {
                         read = line;
-                        LineNumber++;
-                        System.out.println("Der Inhalt der Linie ist" + line);
                     }
 
 
@@ -82,7 +86,6 @@ public class FileListener extends ListenerAdapter {
                         }
 
                     }
-                    int i = 0;
                     Writer.newLine();
                     Writer.write(attachment.get(0).getFileName());
 
