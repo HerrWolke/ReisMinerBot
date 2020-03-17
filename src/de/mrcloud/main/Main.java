@@ -2,6 +2,7 @@ package de.mrcloud.main;
 
 import de.mrcloud.listeners.CommandListener;
 import de.mrcloud.listeners.FileListener;
+import de.mrcloud.listeners.ReactionListener;
 import de.mrcloud.listeners.STATIC;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -18,9 +19,10 @@ public class Main {
     public Main() throws LoginException {
 
         String token = STATIC.TOKEN;
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(token, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_INVITES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGE_TYPING, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES);
+        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(token, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_INVITES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGE_TYPING, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
         builder.addEventListeners(new CommandListener());
         builder.addEventListeners(new FileListener());
+        builder.addEventListeners(new ReactionListener());
         builder.setActivity(Activity.watching("your Configs -- By Mr Cloud#7895--"));
 
         shardMan = builder.build();

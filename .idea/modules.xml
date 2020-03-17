@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ReisMinerBot.iml" filepath="$PROJECT_DIR$/.idea/ReisMinerBot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ReisMinerBot.iml" filepath="$PROJECT_DIR$/ReisMinerBot.iml" />
     </modules>
   </component>
 </project>

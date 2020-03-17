@@ -46,8 +46,14 @@ public class FileListener extends ListenerAdapter {
 
                     //Holt die Anhänge der Datei
                     List<Message.Attachment> attachment = e.getMessage().getAttachments();
+
+
+
                     //Läd die Datei runter
                     attachment.get(0).downloadToFile();
+
+                    //Gibt aus, welcher User die Datei hochgeladen hat + den Namen der Datei
+                    System.out.println("User " + e.getAuthor().getName() + " hat die Datei " + attachment.get(0).getFileName() + " hochgeladen.");
 
                     //Sended die Nachricht in den Console Channel dass die Datei heruntergeladen wurde
                     console.sendMessage("Downloaded File " + "```" + attachment.get(0).getFileName() + "```").queue();
