@@ -16,17 +16,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileListener extends ListenerAdapter {
-
+    public long ReisMinerChannelId = 647754397409083412l;
+    public TextChannel console;
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
-        if (e.getChannel().getIdLong() == 647754397409083412l) {
+        if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
             super.onGuildMessageReceived(e);
             Message message = e.getMessage();
             String rawMsg = message.getContentRaw();
             TextChannel TxtChannel = e.getChannel();
             Guild server = e.getGuild();
             User user = e.getAuthor();
-            TextChannel console;
             List<Permission> deny = Arrays.asList(Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY);
 
             if (!server.getTextChannelsByName("Console", true).isEmpty()) {
@@ -37,6 +37,15 @@ public class FileListener extends ListenerAdapter {
 
 
                 console = server.getTextChannelsByName("Console", true).get(0);
+
+            }
+
+            if (!server.getTextChannelsByName("config-download", true).isEmpty()) {
+                console = server.getTextChannelsByName("config-download", true).get(0);
+
+            } else {
+                server.createTextChannel("config-download").complete();
+                console = server.getTextChannelsByName("config-download", true).get(0);
 
             }
             if (!e.getMessage().getAttachments().isEmpty()) {
@@ -83,6 +92,7 @@ public class FileListener extends ListenerAdapter {
             }
 
         }
+
     }
 }
 
