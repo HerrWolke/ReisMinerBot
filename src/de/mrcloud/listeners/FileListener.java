@@ -11,13 +11,17 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class FileListener extends ListenerAdapter {
     public long ReisMinerChannelId = 647754397409083412l;
     public TextChannel console;
+
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
         if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
@@ -49,13 +53,12 @@ public class FileListener extends ListenerAdapter {
 
             }
             if (!e.getMessage().getAttachments().isEmpty()) {
-                if(!e.getAuthor().isBot()) {
+                if (!e.getAuthor().isBot()) {
                     EmbedBuilder embBuilder = new EmbedBuilder();
                     embBuilder.setColor(Color.CYAN).setTitle("Test").build();
 
                     //Holt die Anhänge der Datei
                     List<Message.Attachment> attachment = e.getMessage().getAttachments();
-
 
 
                     //Läd die Datei runter

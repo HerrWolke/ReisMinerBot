@@ -16,6 +16,7 @@ public class Main {
 
     public ShardManager shardMan;
     FileListener fileListener = new FileListener();
+
     public Main() throws LoginException {
 
 
@@ -28,10 +29,10 @@ public class Main {
 
         shardMan = builder.build();
 
-        if(!shardMan.getGuildsByName("ReisMiner Community", true).isEmpty()) {
+        if (!shardMan.getGuildsByName("ReisMiner Community", true).isEmpty()) {
             System.out.println("Du hast den richtigen Key verwendet!");
 
-            if(shardMan.getGuildsByName("ReisMiner Community", true).get(0).getTextChannelById(fileListener.ReisMinerChannelId) != null) {
+            if (shardMan.getGuildsByName("ReisMiner Community", true).get(0).getTextChannelById(fileListener.ReisMinerChannelId) != null) {
                 System.out.println("Du hast auch die richtige ID verwendet :D");
             }
         }
@@ -39,13 +40,15 @@ public class Main {
 
     public static void main(String[] args) throws LoginException {
         new Main();
-    } public void TurnOff() {
-    if (shardMan != null) {
-        shardMan.setStatus(OnlineStatus.OFFLINE);
-        shardMan.setActivity(Activity.listening("offline"));
-        shardMan.shutdown();
-        System.out.println("Bot wird heruntergefahren");
-        System.exit(1);
+    }
+
+    public void TurnOff() {
+        if (shardMan != null) {
+            shardMan.setStatus(OnlineStatus.OFFLINE);
+            shardMan.setActivity(Activity.listening("offline"));
+            shardMan.shutdown();
+            System.out.println("Bot wird heruntergefahren");
+            System.exit(1);
         }
     }
 }
