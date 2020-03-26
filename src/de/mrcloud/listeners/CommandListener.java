@@ -1,23 +1,30 @@
 package de.mrcloud.listeners;
 
 import de.mrcloud.main.Main;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
+import java.awt.*;
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 public class CommandListener extends ListenerAdapter {
     static Message msg;
+    static boolean configsMessageAlreadyExists;
     public String read = "";
     public long messageID;
+    public String[] splitMsg;
     int delCheckerNumber = 0;
     int Test = 0;
+    int CheckerNumber = 0;
+    int pageChecker = 0;
+    FileListener fl = new FileListener();
+    User author;
 
     public static Message getMsg() {
         return msg;
@@ -27,19 +34,30 @@ public class CommandListener extends ListenerAdapter {
         CommandListener.msg = msg;
     }
 
+    public static boolean getConfigsMessageAlreadyExists() {
+        return configsMessageAlreadyExists;
+    }
+
+    public static void setConfigsMessageAlreadyExists(boolean configsMessageAlreadyExists) {
+        CommandListener.configsMessageAlreadyExists = configsMessageAlreadyExists;
+    }
+
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
+        author = e.getAuthor();
         Message message = e.getMessage();
         String rawMsg = message.getContentRaw();
         TextChannel TxtChannel = e.getChannel();
         Guild server = e.getGuild();
+        String pattern = "\\s";
+        splitMsg = rawMsg.split(pattern);
 
         User user = e.getAuthor();
         TextChannel configDownloadChannel = server.getTextChannelsByName("config-download", true).get(0);
 
-        String pattern = "\\s";
+
         //Splittet die Nachricht nach Leertasten
-        String[] splitMsg = rawMsg.split(pattern);
+
         super.onGuildMessageReceived(e);
         if (splitMsg[0].equalsIgnoreCase("&Config")) {
             //Überprüft dass eine Config angegeben wurde
@@ -53,17 +71,21 @@ public class CommandListener extends ListenerAdapter {
             }
             //Get all Configs Command
         } else if (splitMsg[0].equalsIgnoreCase("&Configs")) {
-            //Checkt dass die Nachricht aus dem Channel config-download kommt
-            if (e.getChannel().getName().equalsIgnoreCase("config-download")) {
-                //Methode, die die Liste an Configs reinschickt
-                configs(TxtChannel, e);
+            if (!configsMessageAlreadyExists) {
+                //Checkt dass die Nachricht aus dem Channel config-download kommt
+                if (e.getChannel().getName().equalsIgnoreCase("config-download")) {
+                    //Methode, die die Liste an Configs reinschickt
+                    configs(TxtChannel, e);
+                    setConfigsMessageAlreadyExists(true);
+                } else {
+                    //Weißt darauf hin, dass dieser Command nur in #config-download benutzt werden soll
+                    fl.Info(e,TxtChannel,"Please only use this Command in " + server.getTextChannelsByName("config-download", true).get(0).getAsMention(), 8);
+                    //Methode, die die Liste an Configs reinschickt
+                    configs(configDownloadChannel, e);
+                }
             } else {
-                //Weißt darauf hin, dass dieser Command nur in #config-download benutzt werden soll
-                TxtChannel.sendMessage("Please only use this Command in " + server.getTextChannelsByName("config-download", true).get(0).getAsMention()).queue();
-                //Methode, die die Liste an Configs reinschickt
-                configs(configDownloadChannel, e);
+                fl.ErrorBuilder(e, TxtChannel, "There is already a configs message in this channel. Please use this one first to avoid Errors.", 12);
             }
-
             //Stoppt den Bot (Fehlerhaft)
         } else if (splitMsg[0].equalsIgnoreCase("&Stop")) {
             Main main = null;
@@ -100,7 +122,13 @@ public class CommandListener extends ListenerAdapter {
             TxtChannel.sendFile(config).queue();
 
         } else {
-            TxtChannel.sendMessage("This File does not exist!").queue();
+            EmbedBuilder embBuilder = new EmbedBuilder();
+            embBuilder.setTitle("Error");
+            embBuilder.setAuthor(author.getName(), author.getAvatarUrl(),author.getAvatarUrl());
+            embBuilder.setColor(Color.decode("#d63031"));
+            embBuilder.setDescription("This File does not exsist");
+            TxtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(8, TimeUnit.SECONDS);
+
         }
     }
 
@@ -116,7 +144,7 @@ public class CommandListener extends ListenerAdapter {
     }
 
     public void configs(TextChannel TxtChannel, GuildMessageReceivedEvent e) {
-        File files = new File("../Files.txt");
+        File files = new File("Files.txt");
 
         System.out.println("User " + e.getAuthor().getName() + " requested the all Configs List!");
 
@@ -136,13 +164,55 @@ public class CommandListener extends ListenerAdapter {
 
 
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
-                while ((line = bufferedReader.readLine()) != null) {
 
-                    read += " " + line;
-                    delCheckerNumber++;
+
+                if (splitMsg.length != 1) {
+                    if (splitMsg[1].equals("2")) {
+                        while ((line = bufferedReader.readLine()) != null) {
+                            if (!(CheckerNumber == 20)) {
+                                pageChecker++;
+                                CheckerNumber++;
+                            } else {
+                                pageChecker++;
+                                read += " " + line;
+                                delCheckerNumber++;
+                            }
+                        }
+                    }
+                    if (splitMsg[1].equals("3")) {
+                        while ((line = bufferedReader.readLine()) != null) {
+                            if (!(CheckerNumber == 40)) {
+                                CheckerNumber++;
+                            } else {
+
+                                read += " " + line;
+                                delCheckerNumber++;
+                            }
+                        }
+                    } if (splitMsg[1].equals("4")) {
+                        while ((line = bufferedReader.readLine()) != null) {
+                            if (!(CheckerNumber == 60)) {
+                                CheckerNumber++;
+                            } else {
+
+                                read += " " + line;
+                                delCheckerNumber++;
+                            }
+                        }
+                    }
+                } else {
+                    while ((line = bufferedReader.readLine()) != null && delCheckerNumber != 20) {
+                        pageChecker++;
+                        read += " " + line;
+                        delCheckerNumber++;
+
+                    }
+                    while((line = bufferedReader.readLine()) != null) {
+                        pageChecker++;
+                        System.out.println(pageChecker);
+                    }
 
                 }
-
 
                 try {
                     bufferedReader.close();
@@ -151,15 +221,26 @@ public class CommandListener extends ListenerAdapter {
                 }
 
             }
+
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 
+        if (delCheckerNumber != 0) {
+            int pageNumber = (int) Math.ceil(pageChecker / 20.0);
+            if(splitMsg.length != 1) {
+                reactor(TxtChannel,pageNumber,splitMsg[1]);
+            }else {
+                reactor(TxtChannel,pageNumber,"1");
+            }
 
-        TxtChannel.sendMessage(read.replaceAll("\\s+", "\n")).queue(message1 -> {
+
+        }
+    } public void reactor(TextChannel TxtChannel, int maxPageNumber, String currentPageNumber) {
+        TxtChannel.sendMessage(read.replaceAll("\\s+", "\n") + "\n" + "\n Seite " + currentPageNumber + " von " + maxPageNumber).queue(message1 -> {
             System.out.println("Es werden " + delCheckerNumber + " Emojis hinzugefügt");
             setMsg(message1);
-
+            pageChecker = 0;
 
             while (Test < delCheckerNumber && Test < 4) {
                 message1.addReaction("U+1f1e" + (6 + Test)).queue();

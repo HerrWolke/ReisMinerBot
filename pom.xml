@@ -6,7 +6,7 @@
 
     <groupId>de.mrcloud</groupId>
     <artifactId>ReisMinerBot</artifactId>
-    <version>0.5 Beta</version>
+    <version>0.5.1 Beta</version>
     <build>
         <plugins>
             <plugin>

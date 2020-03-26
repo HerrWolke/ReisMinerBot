@@ -30,7 +30,7 @@ public class ReactionListener extends ListenerAdapter {
                 int toGet = 0;
                 int i = 0;
                 //Datei in der alle configs gespeichert werden
-                File files = new File("../Files.txt");
+                File files = new File("Files.txt");
 
 
                 super.onGuildMessageReactionAdd(e);
@@ -67,42 +67,52 @@ public class ReactionListener extends ListenerAdapter {
                     switch (reacEmote) {
                         case "\uD83C\uDDE6":
                             cmdListener.getFilesByName(configFile[1], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDE7":
                             toGet = 2;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDE8":
                             toGet = 3;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDE9":
                             toGet = 4;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDEA":
                             toGet = 5;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDEB":
                             toGet = 6;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDEC":
                             toGet = 7;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDED":
                             toGet = 8;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDEE":
                             toGet = 9;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                         case "\uD83C\uDDEF":
                             toGet = 10;
                             cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                            CommandListener.setConfigsMessageAlreadyExists(false);
                             break;
                     }
 
