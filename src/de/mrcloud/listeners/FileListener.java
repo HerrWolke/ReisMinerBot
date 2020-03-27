@@ -108,6 +108,10 @@ public class FileListener extends ListenerAdapter {
         }
     }
 
+    //Embeded Builder Stuff
+    //
+    //
+    //
     public void ErrorBuilder(GuildMessageReceivedEvent e, TextChannel txtChannel, String ErrorText, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle("Error");

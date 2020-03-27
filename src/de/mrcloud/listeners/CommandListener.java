@@ -2,8 +2,10 @@ package de.mrcloud.listeners;
 
 import de.mrcloud.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -25,6 +27,7 @@ public class CommandListener extends ListenerAdapter {
     int pageChecker = 0;
     FileListener fl = new FileListener();
     User author;
+    Message configMessageToTag;
 
     public static Message getMsg() {
         return msg;
@@ -77,14 +80,15 @@ public class CommandListener extends ListenerAdapter {
                     //Methode, die die Liste an Configs reinschickt
                     configs(TxtChannel, e);
                     setConfigsMessageAlreadyExists(true);
+                    configMessageToTag = e.getMessage();
                 } else {
                     //Weißt darauf hin, dass dieser Command nur in #config-download benutzt werden soll
-                    fl.Info(e,TxtChannel,"Please only use this Command in " + server.getTextChannelsByName("config-download", true).get(0).getAsMention(), 8);
+                    fl.Info(e, TxtChannel, "Please only use this Command in " + server.getTextChannelsByName("config-download", true).get(0).getAsMention(), 8);
                     //Methode, die die Liste an Configs reinschickt
                     configs(configDownloadChannel, e);
                 }
             } else {
-                fl.ErrorBuilder(e, TxtChannel, "There is already a configs message in this channel. Please use this one first to avoid Errors.", 12);
+                fl.ErrorBuilder(e, TxtChannel, "There is already a configs message in this channel. Please use this one first to avoid Errors. " + configMessageToTag.getJumpUrl(), 12);
             }
             //Stoppt den Bot (Fehlerhaft)
         } else if (splitMsg[0].equalsIgnoreCase("&Stop")) {
@@ -97,18 +101,24 @@ public class CommandListener extends ListenerAdapter {
             if (main != null) {
                 main.TurnOff();
             }
+        } else if (splitMsg[0].equalsIgnoreCase("&fix")) {
+            if (server.getMembersWithRoles(server.getRolesByName("Moderator", true)).contains(message.getMember())) {
+                configsMessageAlreadyExists = false;
+            }
+
         }
-
-        // METHODS //
-        //         //
-        //         //
-        // METHODS //
-        //         //
-        //         //
-        // METHODS //
-
-        //Sucht nach der Datei und läd sie dann hoch
     }
+
+    // METHODS //
+    //         //
+    //         //
+    // METHODS //
+    //         //
+    //         //
+    // METHODS //
+
+    //Sucht nach der Datei und läd sie dann hoch
+
 
     public void getFilesByName(String splitMsg, TextChannel TxtChannel) {
         if (new File(splitMsg + ".cfg").exists()) {
@@ -124,7 +134,7 @@ public class CommandListener extends ListenerAdapter {
         } else {
             EmbedBuilder embBuilder = new EmbedBuilder();
             embBuilder.setTitle("Error");
-            embBuilder.setAuthor(author.getName(), author.getAvatarUrl(),author.getAvatarUrl());
+            embBuilder.setAuthor(author.getName(), author.getAvatarUrl(), author.getAvatarUrl());
             embBuilder.setColor(Color.decode("#d63031"));
             embBuilder.setDescription("This File does not exsist");
             TxtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(8, TimeUnit.SECONDS);
@@ -178,8 +188,7 @@ public class CommandListener extends ListenerAdapter {
                                 delCheckerNumber++;
                             }
                         }
-                    }
-                    if (splitMsg[1].equals("3")) {
+                    } else if (splitMsg[1].equals("3")) {
                         while ((line = bufferedReader.readLine()) != null) {
                             if (!(CheckerNumber == 40)) {
                                 CheckerNumber++;
@@ -189,7 +198,7 @@ public class CommandListener extends ListenerAdapter {
                                 delCheckerNumber++;
                             }
                         }
-                    } if (splitMsg[1].equals("4")) {
+                    }else if (splitMsg[1].equals("4")) {
                         while ((line = bufferedReader.readLine()) != null) {
                             if (!(CheckerNumber == 60)) {
                                 CheckerNumber++;
@@ -199,6 +208,8 @@ public class CommandListener extends ListenerAdapter {
                                 delCheckerNumber++;
                             }
                         }
+                    } else {
+                        fl.Info(e,TxtChannel,"Please only use numbers!", 8);
                     }
                 } else {
                     while ((line = bufferedReader.readLine()) != null && delCheckerNumber != 20) {
@@ -207,7 +218,7 @@ public class CommandListener extends ListenerAdapter {
                         delCheckerNumber++;
 
                     }
-                    while((line = bufferedReader.readLine()) != null) {
+                    while ((line = bufferedReader.readLine()) != null) {
                         pageChecker++;
                         System.out.println(pageChecker);
                     }
@@ -228,16 +239,18 @@ public class CommandListener extends ListenerAdapter {
 
         if (delCheckerNumber != 0) {
             int pageNumber = (int) Math.ceil(pageChecker / 20.0);
-            if(splitMsg.length != 1) {
-                reactor(TxtChannel,pageNumber,splitMsg[1]);
-            }else {
-                reactor(TxtChannel,pageNumber,"1");
+            if (splitMsg.length != 1) {
+                reactor(TxtChannel, pageNumber, splitMsg[1]);
+            } else {
+                reactor(TxtChannel, pageNumber, "1");
             }
 
 
         }
-    } public void reactor(TextChannel TxtChannel, int maxPageNumber, String currentPageNumber) {
-        TxtChannel.sendMessage(read.replaceAll("\\s+", "\n") + "\n" + "\n Seite " + currentPageNumber + " von " + maxPageNumber).queue(message1 -> {
+    }
+
+    public void reactor(TextChannel TxtChannel, int maxPageNumber, String currentPageNumber) {
+        TxtChannel.sendMessage(read.replaceAll("\\s+", "\n") + "\n" + "\n Page " + currentPageNumber + " of " + maxPageNumber).queue(message1 -> {
             System.out.println("Es werden " + delCheckerNumber + " Emojis hinzugefügt");
             setMsg(message1);
             pageChecker = 0;
