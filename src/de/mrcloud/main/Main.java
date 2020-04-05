@@ -26,7 +26,9 @@ public class Main {
         builder.addEventListeners(new FileListener());
         builder.addEventListeners(new ReactionListener());
         builder.setActivity(Activity.watching("your Configs -- By Mr Cloud#7895--"));
-
+        builder.setMaxReconnectDelay(32);
+        builder.setAutoReconnect(true);
+        builder.setRequestTimeoutRetry(true);
         shardMan = builder.build();
 
         if (!shardMan.getGuildsByName("ReisMiner Community", true).isEmpty()) {
@@ -40,6 +42,7 @@ public class Main {
 
     public static void main(String[] args) throws LoginException {
         new Main();
+
     }
 
     public void TurnOff() {

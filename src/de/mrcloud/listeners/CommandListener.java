@@ -2,6 +2,7 @@ package de.mrcloud.listeners;
 
 import de.mrcloud.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -54,7 +55,6 @@ public class CommandListener extends ListenerAdapter {
         Guild server = e.getGuild();
         String pattern = "\\s";
         splitMsg = rawMsg.split(pattern);
-
         User user = e.getAuthor();
         TextChannel configDownloadChannel = server.getTextChannelsByName("config-download", true).get(0);
 
@@ -79,7 +79,7 @@ public class CommandListener extends ListenerAdapter {
                 if (e.getChannel().getName().equalsIgnoreCase("config-download")) {
                     //Methode, die die Liste an Configs reinschickt
                     configs(TxtChannel, e);
-                    setConfigsMessageAlreadyExists(true);
+
                     configMessageToTag = e.getMessage();
                 } else {
                     //Weißt darauf hin, dass dieser Command nur in #config-download benutzt werden soll
@@ -106,6 +106,14 @@ public class CommandListener extends ListenerAdapter {
                 configsMessageAlreadyExists = false;
             }
 
+        } else if (splitMsg[0].equalsIgnoreCase("&ping")) {
+            TxtChannel.sendMessage("The ping to the JDA is " + e.getJDA().getGatewayPing() + "ms").queue();
+        } else if (splitMsg[0].equalsIgnoreCase("&Dev.Fix")) {
+            if(user.getId().equals(STATIC.CLOUD_ID_STRING)) {
+                System.out.println("&DEV.FIX executed!");
+            }
+        } else if (splitMsg[0].equalsIgnoreCase("&version")) {
+            fl.Success(e,"BOT VERSION",TxtChannel,"This Bot is currently running Version " + STATIC.VERSION,6);
         }
     }
 
@@ -188,6 +196,7 @@ public class CommandListener extends ListenerAdapter {
                                 delCheckerNumber++;
                             }
                         }
+                        setConfigsMessageAlreadyExists(true);
                     } else if (splitMsg[1].equals("3")) {
                         while ((line = bufferedReader.readLine()) != null) {
                             if (!(CheckerNumber == 40)) {
@@ -198,6 +207,7 @@ public class CommandListener extends ListenerAdapter {
                                 delCheckerNumber++;
                             }
                         }
+                        setConfigsMessageAlreadyExists(true);
                     }else if (splitMsg[1].equals("4")) {
                         while ((line = bufferedReader.readLine()) != null) {
                             if (!(CheckerNumber == 60)) {
@@ -208,8 +218,10 @@ public class CommandListener extends ListenerAdapter {
                                 delCheckerNumber++;
                             }
                         }
+                        setConfigsMessageAlreadyExists(true);
                     } else {
                         fl.Info(e,TxtChannel,"Please only use numbers!", 8);
+                        setConfigsMessageAlreadyExists(false);
                     }
                 } else {
                     while ((line = bufferedReader.readLine()) != null && delCheckerNumber != 20) {

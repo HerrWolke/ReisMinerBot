@@ -2,10 +2,7 @@ package de.mrcloud.listeners;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -21,13 +18,14 @@ import java.util.concurrent.TimeUnit;
 
 public class FileListener extends ListenerAdapter {
 
-    public long ReisMinerChannelId = 647754397409083412l;
+    public long ReisMinerChannelId = 647754397409083412L;
     public TextChannel console;
     public TextChannel configDownload;
 
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
         if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
+
             if (!e.getAuthor().isBot()) {
                 super.onGuildMessageReceived(e);
                 Message message = e.getMessage();
@@ -38,11 +36,13 @@ public class FileListener extends ListenerAdapter {
                 if (!e.getMessage().getAttachments().isEmpty()) {
                     if (!e.getMessage().getAttachments().get(0).getFileName().split("\\.")[1].equals("exe")) {
                         List<Permission> deny = Arrays.asList(Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY);
+
+
                         if (!server.getTextChannelsByName("Console", true).isEmpty()) {
                             console = server.getTextChannelsByName("Console", true).get(0);
 
                         } else {
-                            server.createTextChannel("Console").addRolePermissionOverride(358287893225013248l, null, deny).complete();
+                            server.createTextChannel("Console").addRolePermissionOverride(358287893225013248L, null, deny).complete();
                             console = server.getTextChannelsByName("Console", true).get(0);
 
                         }
@@ -69,6 +69,11 @@ public class FileListener extends ListenerAdapter {
 
                                 //Gibt aus, welcher User die Datei hochgeladen hat + den Namen der Datei
                                 System.out.println("User " + e.getAuthor().getName() + " hat die Datei " + attachment.get(0).getFileName() + " hochgeladen.");
+
+                                user.openPrivateChannel().queue((chan) ->
+                                {
+                                    PrivGenerell(e,chan,"#4cd137","Sucess","Your file has been uploaded! You can view the file via &configs or &config " + attachment.get(0).getFileName(),false, 0);
+                                });
 
                                 //Sended die Nachricht in den Console Channel dass die Datei heruntergeladen wurde
                                 downloaded(e, console);
@@ -101,7 +106,7 @@ public class FileListener extends ListenerAdapter {
                         ErrorBuilder(e, TxtChannel, "This Bot doesnt download .exe Files because of security concerns.", 10);
                     }
 
-                } else {
+                } else if(!e.getAuthor().getId().equals("215136536260378624")){
                     message.delete().queue();
                 }
             }
@@ -124,13 +129,35 @@ public class FileListener extends ListenerAdapter {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle("Incorrect use");
         embBuilder.setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
-        embBuilder.setColor(Color.decode("#d63031"));
+        embBuilder.setColor(Color.decode("#f9ca24"));
+        embBuilder.setDescription(InfoText);
+        txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(deleteAfter, TimeUnit.SECONDS);
+
+    } public void Success(GuildMessageReceivedEvent e,String Title, TextChannel txtChannel, String InfoText, int deleteAfter) {
+        EmbedBuilder embBuilder = new EmbedBuilder();
+        embBuilder.setTitle(Title);
+        embBuilder.setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+        embBuilder.setColor(Color.decode("#f9ca24"));
         embBuilder.setDescription(InfoText);
         txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(deleteAfter, TimeUnit.SECONDS);
 
     }
 
+
     public void Generell(GuildMessageReceivedEvent e, TextChannel txtChannel, String MessageColor, String Title, String Desc, boolean delete, int toDeleteAfter) {
+        EmbedBuilder embBuilder = new EmbedBuilder();
+        embBuilder.setTitle(Title);
+        embBuilder.setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+        embBuilder.setColor(Color.decode(MessageColor));
+        embBuilder.setDescription(Desc);
+        if (delete) {
+            txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(toDeleteAfter, TimeUnit.SECONDS);
+        } else {
+            txtChannel.sendMessage(embBuilder.build()).queue();
+        }
+
+    }
+    public void PrivGenerell(GuildMessageReceivedEvent e, PrivateChannel txtChannel, String MessageColor, String Title, String Desc, boolean delete, int toDeleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
@@ -147,10 +174,10 @@ public class FileListener extends ListenerAdapter {
     public void downloaded(GuildMessageReceivedEvent e, TextChannel txtChannel) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle("Success");
-        embBuilder.setAuthor(e.getAuthor().getName() + " uploaded File", e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+        embBuilder.setAuthor(e.getAuthor().getName() + " uploaded a File", e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
         embBuilder.setColor(Color.decode("#2ecc71"));
         embBuilder.setDescription("Downloaded File " + e.getMessage().getAttachments().get(0).getFileName());
-        txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(10, TimeUnit.SECONDS);
+        txtChannel.sendMessage(embBuilder.build()).complete();
     }
 
 }
