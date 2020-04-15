@@ -73,61 +73,62 @@ public class CommandListener extends ListenerAdapter {
 
         //Splittet die Nachricht nach Leertasten
         super.onGuildMessageReceived(e);
-        if (splitMsg[0].equalsIgnoreCase("&Config")) {
-            //Überprüft dass eine Config angegeben wurde
-            if (!splitMsg[1].isEmpty()) {
-                getFilesByName(splitMsg[1], TxtChannel);
-                System.out.println("User " + e.getAuthor().getName() + " hat die Datei " + splitMsg[1] + " angefordert.");
-                //Schau ob eine Datei mit dem 1.Argument + .cfg existiert
+            if (splitMsg[0].equalsIgnoreCase("&Config")) {
+                //Überprüft dass eine Config angegeben wurde
+                if (!splitMsg[1].isEmpty()) {
+                    getFilesByName(splitMsg[1], TxtChannel);
+                    System.out.println("User " + e.getAuthor().getName() + " hat die Datei " + splitMsg[1] + " angefordert.");
+                    //Schau ob eine Datei mit dem 1.Argument + .cfg existiert
 
-            } else {
-                TxtChannel.sendMessage("Please use &Config CONFIGNAME(.lua/.cfg)").queue();
-            }
-            //Get all Configs Command
-        } else if (splitMsg[0].equalsIgnoreCase("&Configs")) {
-            if (!configsMessageAlreadyExists) {
-                //Checkt dass die Nachricht aus dem Channel config-download kommt
-                if (e.getChannel().getName().equalsIgnoreCase("config-download")) {
-                    //Methode, die die Liste an Configs reinschickt
-                    configs(TxtChannel, e);
-
-                    configMessageToTag = e.getMessage();
                 } else {
-                    //Weißt darauf hin, dass dieser Command nur in #config-download benutzt werden soll
-                    fl.Info(e, TxtChannel, "Please only use this Command in " + server.getTextChannelsByName("config-download", true).get(0).getAsMention(), 8);
-                    //Methode, die die Liste an Configs reinschickt
-                    configs(configDownloadChannel, e);
+                    TxtChannel.sendMessage("Please use &Config CONFIGNAME(.lua/.cfg)").queue();
                 }
-            } else {
-                fl.ErrorBuilder(e, TxtChannel, "There is already a configs message in this channel. Please use this one first to avoid Errors. " + configMessageToTag.getJumpUrl(), 12);
-            }
-            //Stoppt den Bot (Fehlerhaft)
-        } else if (splitMsg[0].equalsIgnoreCase("&Stop")) {
-            Main main = null;
-            try {
-                main = new Main();
-            } catch (LoginException e1) {
-                e1.printStackTrace();
-            }
-            if (main != null) {
-                main.TurnOff();
-            }
-        } else if (splitMsg[0].equalsIgnoreCase("&fix")) {
-            if (server.getMembersWithRoles(server.getRolesByName("Moderator", true)).contains(message.getMember())) {
-                configsMessageAlreadyExists = false;
-            }
+                //Get all Configs Command
+            } else if (splitMsg[0].equalsIgnoreCase("&Configs")) {
+                if (!configsMessageAlreadyExists) {
+                    //Checkt dass die Nachricht aus dem Channel config-download kommt
+                    if (e.getChannel().getName().equalsIgnoreCase("config-download")) {
+                        //Methode, die die Liste an Configs reinschickt
+                        configs(TxtChannel, e);
 
-        } else if (splitMsg[0].equalsIgnoreCase("&ping")) {
-            TxtChannel.sendMessage("The ping to the JDA is " + e.getJDA().getGatewayPing() + "ms").queue();
-        } else if (splitMsg[0].equalsIgnoreCase("&Dev.Fix")) {
-            if (user.getId().equals(STATIC.CLOUD_ID_STRING)) {
-                System.out.println("&DEV.FIX executed!");
-            }
-        } else if (splitMsg[0].equalsIgnoreCase("&version")) {
-            fl.Success(e, "BOT VERSION", TxtChannel, "This Bot is currently running Version " + STATIC.VERSION, 6);
-        } else if (splitMsg[0].equalsIgnoreCase("&test")) {
-            de.mrcloud.User tester = new de.mrcloud.User(0, true, e.getAuthor());
-            System.out.println(tester.IsRegistred);
+                        configMessageToTag = e.getMessage();
+                    } else {
+                        //Weißt darauf hin, dass dieser Command nur in #config-download benutzt werden soll
+                        fl.Info(e, TxtChannel, "Please only use this Command in " + server.getTextChannelsByName("config-download", true).get(0).getAsMention(), 8);
+                        //Methode, die die Liste an Configs reinschickt
+                        configs(configDownloadChannel, e);
+                    }
+                } else {
+                    fl.ErrorBuilder(e, TxtChannel, "There is already a configs message in this channel. Please use this one first to avoid Errors. " + configMessageToTag.getJumpUrl(), 12);
+                }
+                //Stoppt den Bot (Fehlerhaft)
+            } else if (splitMsg[0].equalsIgnoreCase("&Stop")) {
+                Main main = null;
+                try {
+                    main = new Main();
+                } catch (LoginException e1) {
+                    e1.printStackTrace();
+                }
+                if (main != null) {
+                    main.TurnOff();
+                }
+            } else if (splitMsg[0].equalsIgnoreCase("&fix")) {
+                if (server.getMembersWithRoles(server.getRolesByName("Moderator", true)).contains(message.getMember())) {
+                    configsMessageAlreadyExists = false;
+                }
+
+            } else if (splitMsg[0].equalsIgnoreCase("&ping")) {
+                TxtChannel.sendMessage("The ping to the JDA is " + e.getJDA().getGatewayPing() + "ms").queue();
+            } else if (splitMsg[0].equalsIgnoreCase("&Dev.Fix")) {
+                if (user.getId().equals(STATIC.CLOUD_ID_STRING)) {
+                    System.out.println("&DEV.FIX executed!");
+                }
+            } else if (splitMsg[0].equalsIgnoreCase("&version")) {
+                fl.Success(e, "BOT VERSION", TxtChannel, "This Bot is currently running Version " + STATIC.VERSION, 6);
+            } else if (splitMsg[0].equalsIgnoreCase("&test")) {
+                de.mrcloud.User tester = new de.mrcloud.User(0, true, e.getAuthor());
+                System.out.println(tester.IsRegistred);
+
 
         } else if (splitMsg[0].equalsIgnoreCase("&profile")) {
 
@@ -224,6 +225,7 @@ public class CommandListener extends ListenerAdapter {
                                 "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
                         fl.Success(e,"Succes",TxtChannel,"You have been succesfully registred. Your stats will now be tracked!",200);
                     } else {
+                        message.delete().complete();
                         fl.ErrorBuilder(e,TxtChannel,"You are already registerd", 10);
                     }
                 } catch (SQLException e1) {
@@ -353,7 +355,7 @@ public class CommandListener extends ListenerAdapter {
                         pageChecker++;
                         System.out.println(pageChecker);
                     }
-
+                    setConfigsMessageAlreadyExists(true);
                 }
 
                 try {
