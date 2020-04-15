@@ -137,7 +137,7 @@ public class FileListener extends ListenerAdapter {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
-        embBuilder.setColor(Color.decode("#f9ca24"));
+        embBuilder.setColor(Color.decode("#2ecc71"));
         embBuilder.setDescription(InfoText);
         txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(deleteAfter, TimeUnit.SECONDS);
 

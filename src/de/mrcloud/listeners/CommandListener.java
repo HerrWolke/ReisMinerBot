@@ -1,12 +1,9 @@
 package de.mrcloud.listeners;
 
+import de.mrcloud.DataBaseTest;
 import de.mrcloud.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -14,7 +11,14 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 import java.io.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class CommandListener extends ListenerAdapter {
     static Message msg;
@@ -54,13 +58,20 @@ public class CommandListener extends ListenerAdapter {
         TextChannel TxtChannel = e.getChannel();
         Guild server = e.getGuild();
         String pattern = "\\s";
+
         splitMsg = rawMsg.split(pattern);
         User user = e.getAuthor();
         TextChannel configDownloadChannel = server.getTextChannelsByName("config-download", true).get(0);
 
 
-        //Splittet die Nachricht nach Leertasten
+        Statement myStmt = null;
+        try {
+            myStmt = Objects.requireNonNull(DataBaseTest.mariaDB()).createStatement();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
 
+        //Splittet die Nachricht nach Leertasten
         super.onGuildMessageReceived(e);
         if (splitMsg[0].equalsIgnoreCase("&Config")) {
             //Überprüft dass eine Config angegeben wurde
@@ -109,11 +120,119 @@ public class CommandListener extends ListenerAdapter {
         } else if (splitMsg[0].equalsIgnoreCase("&ping")) {
             TxtChannel.sendMessage("The ping to the JDA is " + e.getJDA().getGatewayPing() + "ms").queue();
         } else if (splitMsg[0].equalsIgnoreCase("&Dev.Fix")) {
-            if(user.getId().equals(STATIC.CLOUD_ID_STRING)) {
+            if (user.getId().equals(STATIC.CLOUD_ID_STRING)) {
                 System.out.println("&DEV.FIX executed!");
             }
         } else if (splitMsg[0].equalsIgnoreCase("&version")) {
-            fl.Success(e,"BOT VERSION",TxtChannel,"This Bot is currently running Version " + STATIC.VERSION,6);
+            fl.Success(e, "BOT VERSION", TxtChannel, "This Bot is currently running Version " + STATIC.VERSION, 6);
+        } else if (splitMsg[0].equalsIgnoreCase("&test")) {
+            de.mrcloud.User tester = new de.mrcloud.User(0, true, e.getAuthor());
+            System.out.println(tester.IsRegistred);
+
+        } else if (splitMsg[0].equalsIgnoreCase("&profile")) {
+
+
+
+            String configsPosted = "";
+            String firstMessage = "";
+            String likesReceived = "";
+            String dislikesReceived = "";
+
+            try {
+
+
+                ResultSet mySet2 = myStmt.executeQuery("SELECT *" + "\n" +
+                        "FROM Users u" + "\n" + "WHERE user = '" + user.getId() + "';");
+
+                if (!mySet2.next()) {
+                    fl.Info(e,TxtChannel,"You are not yet registred. You will be automatically registred!",10);
+                    fl.Info(e,TxtChannel,"This may take up to 1min. Please wait before executing this command again", 40);
+
+                    int toPrint = getMessagesByUser(TxtChannel, user).size() - 1;
+                    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH:mm:ss");
+                    String formattedDate = getMessagesByUser(TxtChannel, user).get(toPrint).getTimeCreated().format(myFormatObj);
+
+                    if(message.getTextChannel().getName().equals("main-chat")) {
+                        System.out.println("user, firstMessage, configCount, likes, dislikes ) " + "\n" +
+                                "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
+                        ResultSet mySet = myStmt.executeQuery("INSERT into Users (user, firstMessage, configCount, likes, dislikes ) " + "\n" +
+                                "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
+
+
+                    } else {
+                        fl.Info(e,TxtChannel,"Please use this command ONCE in " + server.getTextChannelsByName("main-chat",true).get(0).getAsMention() + "or use &register",8);
+                    }
+
+                } else {
+                    mySet2.beforeFirst();
+                    while (mySet2.next()) {
+                        firstMessage = mySet2.getString("firstMessage");
+                        configsPosted = mySet2.getString("configCount");
+                        likesReceived = mySet2.getString("configCount");
+                        dislikesReceived = mySet2.getString("configCount");
+
+                    }
+                    EmbedBuilder embBuilder = new EmbedBuilder();
+                    embBuilder.setTitle("Profile Info");
+                    embBuilder.setAuthor(e.getAuthor().getName() + "'s Profile", e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+                    embBuilder.setColor(Color.decode("#2ecc71"));
+                    embBuilder.addField("Active Since", firstMessage, true);
+                    embBuilder.addField("Configs Uploaded", configsPosted, true);
+                    embBuilder.addField("Likes Received", likesReceived, true);
+                    embBuilder.addField("Dislikes Received", dislikesReceived, true);
+                    TxtChannel.sendMessage(embBuilder.build()).complete();
+                }
+
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
+
+        } else if (splitMsg[0].equalsIgnoreCase("&register")) {
+
+
+            if(message.getTextChannel().getName().equals("main-chat")) {
+                ResultSet mySet2 = null;
+                try {
+                    assert myStmt != null;
+                    mySet2 = myStmt.executeQuery("SELECT *" + "\n" +
+                            "FROM Users u" + "\n" + "WHERE user = '" + user.getId() + "';");
+                    System.out.println("Querry executed succesfully");
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                    System.out.println("Error while connecting to db");
+                }
+
+
+                try {
+                    if (mySet2 != null && !mySet2.next()) {
+                        fl.Info(e,TxtChannel,"This may take up to 1min. Please wait before executing this command again", 40);
+                        int toPrint = getMessagesByUser(TxtChannel, user).size() - 1;
+                        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH:mm:ss");
+                        String formattedDate = getMessagesByUser(TxtChannel, user).get(toPrint).getTimeCreated().format(myFormatObj);
+                        try {
+                            myStmt.executeQuery("INSERT into Users (user, firstMessage, configCount, likes, dislikes ) " + "\n" +
+                                    "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
+
+
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                            System.out.println("Error while writing to db");
+                        }
+
+                        System.out.println("user, firstMessage, configCount, likes, dislikes ) " + "\n" +
+                                "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
+                        fl.Success(e,"Succes",TxtChannel,"You have been succesfully registred. Your stats will now be tracked!",200);
+                    } else {
+                        fl.ErrorBuilder(e,TxtChannel,"You are already registerd", 10);
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+            } else {
+                fl.Info(e,TxtChannel,"Please only use this command in " + server.getTextChannelsByName("main-chat",true).get(0).getAsMention(),8);
+            }
         }
     }
 
@@ -208,7 +327,7 @@ public class CommandListener extends ListenerAdapter {
                             }
                         }
                         setConfigsMessageAlreadyExists(true);
-                    }else if (splitMsg[1].equals("4")) {
+                    } else if (splitMsg[1].equals("4")) {
                         while ((line = bufferedReader.readLine()) != null) {
                             if (!(CheckerNumber == 60)) {
                                 CheckerNumber++;
@@ -220,7 +339,7 @@ public class CommandListener extends ListenerAdapter {
                         }
                         setConfigsMessageAlreadyExists(true);
                     } else {
-                        fl.Info(e,TxtChannel,"Please only use numbers!", 8);
+                        fl.Info(e, TxtChannel, "Please only use numbers!", 8);
                         setConfigsMessageAlreadyExists(false);
                     }
                 } else {
@@ -312,4 +431,12 @@ public class CommandListener extends ListenerAdapter {
             read = "";
         });
     }
+
+    public List<Message> getMessagesByUser(MessageChannel channel, User user) {
+        return channel.getIterableHistory().stream()
+                .limit(10000)
+                .filter(m -> m.getAuthor().equals(user))
+                .collect(Collectors.toList());
+    }
+
 }
