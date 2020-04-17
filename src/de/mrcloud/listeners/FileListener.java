@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ public class FileListener extends ListenerAdapter {
                 TextChannel TxtChannel = e.getChannel();
                 Guild server = e.getGuild();
                 User user = e.getAuthor();
+
                 if (!e.getMessage().getAttachments().isEmpty()) {
                     if (!e.getMessage().getAttachments().get(0).getFileName().split("\\.")[1].equals("exe")) {
 
@@ -91,7 +93,23 @@ public class FileListener extends ListenerAdapter {
 
                                 //Gibt aus, welcher User die Datei hochgeladen hat + den Namen der Datei
                                 System.out.println("User " + e.getAuthor().getName() + " hat die Datei " + attachment.get(0).getFileName() + " hochgeladen.");
+                                ResultSet myRes = null;
+                                int configsUploaded = 0;
+                                try {
+                                    assert myStmt != null;
+                                    myRes = myStmt.executeQuery("SELECT configCount FROM Users WHERE user = " + user.getId() + ";");
+                                    while (myRes.next()) {
+                                        configsUploaded  = Integer.parseInt(myRes.getString("configCount"));
+                                        configsUploaded ++;
+                                    }
 
+                                    myStmt.executeQuery("UPDATE Users SET configCount = " + configsUploaded  + " WHERE user = " + user.getId() + ";");
+
+                                } catch (SQLException e1) {
+                                    e1.printStackTrace();
+                                    System.out.println(e1.getSQLState());
+                                    System.out.println(e1.getLocalizedMessage());
+                                }
 
 
                                 user.openPrivateChannel().queue((chan) ->

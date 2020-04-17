@@ -137,7 +137,10 @@ public class CommandListener extends ListenerAdapter {
             String firstMessage = "";
             String likesReceived = "";
             String dislikesReceived = "";
-            if (splitMsg[1].isEmpty()) {
+
+            System.out.println(dislikesReceived);
+
+            if (splitMsg.length == 1) {
                 try {
 
 
@@ -168,8 +171,8 @@ public class CommandListener extends ListenerAdapter {
                         while (mySet2.next()) {
                             firstMessage = mySet2.getString("firstMessage");
                             configsPosted = mySet2.getString("configCount");
-                            likesReceived = mySet2.getString("configCount");
-                            dislikesReceived = mySet2.getString("configCount");
+                            likesReceived = mySet2.getString("likes");
+                            dislikesReceived = mySet2.getString("dislikes");
 
                         }
                         EmbedBuilder embBuilder = new EmbedBuilder();
@@ -181,6 +184,7 @@ public class CommandListener extends ListenerAdapter {
                         embBuilder.addField("Likes Received", likesReceived, true);
                         embBuilder.addField("Dislikes Received", dislikesReceived, true);
                         TxtChannel.sendMessage(embBuilder.build()).complete();
+
                     }
 
                 } catch (SQLException e1) {
@@ -190,18 +194,16 @@ public class CommandListener extends ListenerAdapter {
             } else {
                 try {
                     ResultSet mySet2 = myStmt.executeQuery("SELECT *" + "\n" +
-                            "FROM Users u" + "\n" + "WHERE user = '" + message.getMentionedMembers().get(0) + "';");
-
+                            "FROM Users u" + "\n" + "WHERE user = '" + message.getMentionedMembers().get(0).getId() + "';");
                     while (mySet2.next()) {
                         firstMessage = mySet2.getString("firstMessage");
                         configsPosted = mySet2.getString("configCount");
-                        likesReceived = mySet2.getString("configCount");
-                        dislikesReceived = mySet2.getString("configCount");
-
+                        likesReceived = mySet2.getString("likes");
+                        dislikesReceived = mySet2.getString("dislikes");
                     }
                     EmbedBuilder embBuilder = new EmbedBuilder();
                     embBuilder.setTitle("Profile Info");
-                    embBuilder.setAuthor(message.getMentionedMembers().get(0).getNickname() + "'s Profile", message.getMentionedMembers().get(0).getUser().getAvatarUrl(), message.getMentionedMembers().get(0).getUser().getAvatarUrl());
+                    embBuilder.setAuthor(message.getMentionedMembers().get(0).getEffectiveName() + "'s Profile", message.getMentionedMembers().get(0).getUser().getAvatarUrl(), message.getMentionedMembers().get(0).getUser().getAvatarUrl());
                     embBuilder.setColor(Color.decode("#2ecc71"));
                     embBuilder.addField("Active Since", firstMessage, true);
                     embBuilder.addField("Configs Uploaded", configsPosted, true);
