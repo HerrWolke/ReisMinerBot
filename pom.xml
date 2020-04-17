@@ -6,7 +6,7 @@
 
     <groupId>de.mrcloud</groupId>
     <artifactId>ReisMinerBot</artifactId>
-    <version>0.5.1 Beta</version>
+    <version>Beta 0.5.3.1</version>
     <build>
         <plugins>
             <plugin>
@@ -20,6 +20,11 @@
         </plugins>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
@@ -44,5 +49,4 @@
             <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
-
 </project>

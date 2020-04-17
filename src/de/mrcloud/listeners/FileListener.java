@@ -1,5 +1,6 @@
 package de.mrcloud.listeners;
 
+import de.mrcloud.DataBaseTest;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
@@ -12,8 +13,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class FileListener extends ListenerAdapter {
@@ -22,11 +26,16 @@ public class FileListener extends ListenerAdapter {
     public TextChannel console;
     public TextChannel configDownload;
 
+
+
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
         if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
 
+
+
             if (!e.getAuthor().isBot()) {
+
                 super.onGuildMessageReceived(e);
                 Message message = e.getMessage();
                 String rawMsg = message.getContentRaw();
@@ -35,6 +44,11 @@ public class FileListener extends ListenerAdapter {
                 User user = e.getAuthor();
                 if (!e.getMessage().getAttachments().isEmpty()) {
                     if (!e.getMessage().getAttachments().get(0).getFileName().split("\\.")[1].equals("exe")) {
+
+
+
+
+
                         List<Permission> deny = Arrays.asList(Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY);
 
 
@@ -57,11 +71,19 @@ public class FileListener extends ListenerAdapter {
                         }
                         if (!e.getMessage().getAttachments().isEmpty()) {
                             if (!e.getAuthor().isBot()) {
-                                EmbedBuilder embBuilder = new EmbedBuilder();
-                                embBuilder.setColor(Color.CYAN).setTitle("Test").build();
+                                Statement myStmt = null;
+                                try {
+                                    myStmt = Objects.requireNonNull(DataBaseTest.mariaDB()).createStatement();
+                                } catch (SQLException e1) {
+                                    e1.printStackTrace();
+                                }
+
 
                                 //Holt die Anhänge der Datei
                                 List<Message.Attachment> attachment = e.getMessage().getAttachments();
+
+                                message.addReaction("\uD83D\uDC4D").queue();
+                                message.addReaction("\uD83D\uDC4E").queue();
 
 
                                 //Läd die Datei runter
@@ -69,6 +91,8 @@ public class FileListener extends ListenerAdapter {
 
                                 //Gibt aus, welcher User die Datei hochgeladen hat + den Namen der Datei
                                 System.out.println("User " + e.getAuthor().getName() + " hat die Datei " + attachment.get(0).getFileName() + " hochgeladen.");
+
+
 
                                 user.openPrivateChannel().queue((chan) ->
                                 {

@@ -1,12 +1,19 @@
 package de.mrcloud.listeners;
 
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
+import de.mrcloud.DataBaseTest;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
 import java.io.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ReactionListener extends ListenerAdapter {
     public String forCmdListener = "";
@@ -127,7 +134,153 @@ public class ReactionListener extends ListenerAdapter {
                     }
                 }
             }
+            if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
+                String reacEmote = e.getReactionEmote().getName();
+                TextChannel txtChannel = e.getChannel();
+                CommandListener cmdListener = new CommandListener();
+                Guild server = e.getGuild();
+                ResultSet myRes = null;
+                int likes = 0;
+                int dislikes = 0;
+                final Message[] message = new Message[1];
+                txtChannel.retrieveMessageById(e.getMessageId()).queue(message1 -> message[0] = message1);
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                    System.out.println(e1.getLocalizedMessage());
+                }
+                assert message[0] != null;
+                User author = message[0].getAuthor();
+                Statement myStmt = null;
+                try {
+                    myStmt = Objects.requireNonNull(DataBaseTest.mariaDB()).createStatement();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                //Aka Like
+                if (reacEmote.equals("\uD83D\uDC4D")) {
+                    try {
+                        assert myStmt != null;
+                        myRes = myStmt.executeQuery("SELECT likes FROM Users WHERE user = " + author.getId() + ";");
+                        while (myRes.next()) {
+                            likes = Integer.parseInt(myRes.getString("likes"));
+                            likes++;
+                        }
+
+                        myStmt.executeQuery("UPDATE Users SET likes = " + likes + " WHERE user = " + author.getId() + ";");
+
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                        System.out.println(e1.getSQLState());
+                        System.out.println(e1.getLocalizedMessage());
+                    }
+
+
+                    //Aka Dislike
+                } else if (reacEmote.equals("\uD83D\uDC4E")) {
+                    try {
+                        assert myStmt != null;
+                        myRes = myStmt.executeQuery("SELECT dislikes FROM Users WHERE user = " + author.getId() + ";");
+                        while (myRes.next()) {
+                            dislikes = Integer.parseInt(myRes.getString("dislikes"));
+                            dislikes++;
+                        }
+
+                        myStmt.executeQuery("UPDATE Users SET dislikes = " + dislikes + " WHERE user = " + author.getId() + ";");
+
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                        System.out.println(e1.getSQLState());
+                        System.out.println(e1.getLocalizedMessage());
+                    }
+
+
+                }
+            }
         }
+    }
+
+    @Override
+    public void onGuildMessageReactionRemove(@Nonnull GuildMessageReactionRemoveEvent e) {
+        super.onGuildMessageReactionRemove(e);
+
+        if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
+            String reacEmote = e.getReactionEmote().getName();
+            TextChannel txtChannel = e.getChannel();
+            CommandListener cmdListener = new CommandListener();
+            Guild server = e.getGuild();
+            ResultSet myRes;
+            int likes = 0;
+            int dislikes = 0;
+            final Message[] message = new Message[1];
+            txtChannel.retrieveMessageById(e.getMessageId()).queue(message1 -> message[0] = message1);
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+                System.out.println(e1.getLocalizedMessage());
+            }
+            assert message[0] != null;
+            User author = message[0].getAuthor();
+
+            Statement myStmt = null;
+            try {
+                myStmt = Objects.requireNonNull(DataBaseTest.mariaDB()).createStatement();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            //Aka Like
+            if (reacEmote.equals("\uD83D\uDC4D")) {
+                try {
+                    assert myStmt != null;
+                    myRes = myStmt.executeQuery("SELECT likes FROM Users WHERE user = " + author.getId() + ";");
+                    while (myRes.next()) {
+                        likes = Integer.parseInt(myRes.getString("likes"));
+                        likes--;
+                    }
+
+                    myStmt.executeQuery("UPDATE Users SET likes = " + likes + " WHERE user = " + author.getId() + ";");
+
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                    System.out.println(e1.getSQLState());
+                    System.out.println(e1.getLocalizedMessage());
+                }
+
+
+                //Aka Dislike
+            } else if (reacEmote.equals("\uD83D\uDC4E")) {
+                try {
+                    assert myStmt != null;
+                    myRes = myStmt.executeQuery("SELECT dislikes FROM Users WHERE user = " + author.getId() + ";");
+                    while (myRes.next()) {
+                        dislikes = Integer.parseInt(myRes.getString("dislikes"));
+                        dislikes--;
+                    }
+
+                    myStmt.executeQuery("UPDATE Users SET dislikes = " + dislikes + " WHERE user = " + author.getId() + ";");
+
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                    System.out.println(e1.getSQLState());
+                    System.out.println(e1.getLocalizedMessage());
+                }
+
+
+            }
+
+        }
+
+
+    }
+
+    public List<Message> getMessages(MessageChannel channel) {
+        return channel.getIterableHistory().stream()
+                .limit(200)
+                .collect(Collectors.toList());
     }
 
 }
