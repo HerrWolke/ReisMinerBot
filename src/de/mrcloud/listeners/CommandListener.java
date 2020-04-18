@@ -34,6 +34,7 @@ public class CommandListener extends ListenerAdapter {
     User author;
     Message configMessageToTag;
 
+
     public static Message getMsg() {
         return msg;
     }
@@ -59,6 +60,7 @@ public class CommandListener extends ListenerAdapter {
         Guild server = e.getGuild();
         String pattern = "\\s";
 
+        int toPrint = 0;
         splitMsg = rawMsg.split(pattern);
         User user = e.getAuthor();
         TextChannel configDownloadChannel = server.getTextChannelsByName("config-download", true).get(0);
@@ -138,7 +140,6 @@ public class CommandListener extends ListenerAdapter {
             String likesReceived = "";
             String dislikesReceived = "";
 
-            System.out.println(dislikesReceived);
 
             if (splitMsg.length == 1) {
                 try {
@@ -147,25 +148,53 @@ public class CommandListener extends ListenerAdapter {
                     ResultSet mySet2 = myStmt.executeQuery("SELECT *" + "\n" +
                             "FROM Users u" + "\n" + "WHERE user = '" + user.getId() + "';");
 
+
+                    while (mySet2.next()) {
+                        firstMessage = mySet2.getString("firstMessage");
+                        configsPosted = mySet2.getString("configCount");
+                        likesReceived = mySet2.getString("likes");
+                        dislikesReceived = mySet2.getString("dislikes");
+
+                    }
+                    EmbedBuilder embBuilder = new EmbedBuilder();
+                    embBuilder.setTitle("Profile Info");
+                    embBuilder.setAuthor(e.getAuthor().getName() + "'s Profile", e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+                    embBuilder.setColor(Color.decode("#2ecc71"));
+                    embBuilder.addField("Active Since", firstMessage, true);
+                    embBuilder.addField("Configs Uploaded", configsPosted, true);
+                    embBuilder.addField("Likes Received", likesReceived, true);
+                    embBuilder.addField("Dislikes Received", dislikesReceived, true);
+                    TxtChannel.sendMessage(embBuilder.build()).complete();
+
+                    server.addRoleToMember(e.getMember(), server.getRolesByName("Registred", true).get(0)).queue();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+            } else {
+                try {
+                    ResultSet mySet2 = myStmt.executeQuery("SELECT *" + "\n" +
+                            "FROM Users u" + "\n" + "WHERE user = '" + message.getMentionedMembers().get(0).getId() + "';");
+                    mySet2.beforeFirst();
                     if (!mySet2.next()) {
+                        System.out.println(TxtChannel);
                         fl.Info(e, TxtChannel, "You are not yet registred. You will be automatically registred!", 10);
                         fl.Info(e, TxtChannel, "This may take up to 1 min. Please wait before executing this command again", 40);
 
-                        int toPrint = getMessagesByUser(TxtChannel, user).size() - 1;
+                        toPrint = getMessagesByUser(TxtChannel, message.getMentionedMembers().get(0).getUser()).size() - 1;
+
                         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH:mm:ss");
-                        String formattedDate = getMessagesByUser(TxtChannel, user).get(toPrint).getTimeCreated().format(myFormatObj);
+                        String formattedDate = getMessagesByUser(TxtChannel, message.getMentionedMembers().get(0).getUser()).get(toPrint).getTimeCreated().format(myFormatObj);
 
                         if (message.getTextChannel().getName().equals("main-chat")) {
                             System.out.println("user, firstMessage, configCount, likes, dislikes ) " + "\n" +
-                                    "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
+                                    "VALUES (" + message.getMentionedMembers().get(0).getUser().getId() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
                             ResultSet mySet = myStmt.executeQuery("INSERT into Users (user, firstMessage, configCount, likes, dislikes ) " + "\n" +
-                                    "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
-
+                                    "VALUES (" + message.getMentionedMembers().get(0).getUser().getId() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
 
                         } else {
                             fl.Info(e, TxtChannel, "Please use this command ONCE in " + server.getTextChannelsByName("main-chat", true).get(0).getAsMention() + "or use &register", 8);
                         }
-
                     } else {
                         mySet2.beforeFirst();
                         while (mySet2.next()) {
@@ -175,9 +204,11 @@ public class CommandListener extends ListenerAdapter {
                             dislikesReceived = mySet2.getString("dislikes");
 
                         }
+
+                        System.out.println("DISLIKES:" + dislikesReceived);
                         EmbedBuilder embBuilder = new EmbedBuilder();
                         embBuilder.setTitle("Profile Info");
-                        embBuilder.setAuthor(e.getAuthor().getName() + "'s Profile", e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+                        embBuilder.setAuthor(message.getMentionedMembers().get(0).getEffectiveName() + "'s Profile", message.getMentionedMembers().get(0).getUser().getAvatarUrl(), message.getMentionedMembers().get(0).getUser().getAvatarUrl());
                         embBuilder.setColor(Color.decode("#2ecc71"));
                         embBuilder.addField("Active Since", firstMessage, true);
                         embBuilder.addField("Configs Uploaded", configsPosted, true);
@@ -185,31 +216,8 @@ public class CommandListener extends ListenerAdapter {
                         embBuilder.addField("Dislikes Received", dislikesReceived, true);
                         TxtChannel.sendMessage(embBuilder.build()).complete();
 
+                        server.addRoleToMember(e.getMember(), server.getRolesByName("Registred", true).get(0)).queue();
                     }
-
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-
-            } else {
-                try {
-                    ResultSet mySet2 = myStmt.executeQuery("SELECT *" + "\n" +
-                            "FROM Users u" + "\n" + "WHERE user = '" + message.getMentionedMembers().get(0).getId() + "';");
-                    while (mySet2.next()) {
-                        firstMessage = mySet2.getString("firstMessage");
-                        configsPosted = mySet2.getString("configCount");
-                        likesReceived = mySet2.getString("likes");
-                        dislikesReceived = mySet2.getString("dislikes");
-                    }
-                    EmbedBuilder embBuilder = new EmbedBuilder();
-                    embBuilder.setTitle("Profile Info");
-                    embBuilder.setAuthor(message.getMentionedMembers().get(0).getEffectiveName() + "'s Profile", message.getMentionedMembers().get(0).getUser().getAvatarUrl(), message.getMentionedMembers().get(0).getUser().getAvatarUrl());
-                    embBuilder.setColor(Color.decode("#2ecc71"));
-                    embBuilder.addField("Active Since", firstMessage, true);
-                    embBuilder.addField("Configs Uploaded", configsPosted, true);
-                    embBuilder.addField("Likes Received", likesReceived, true);
-                    embBuilder.addField("Dislikes Received", dislikesReceived, true);
-                    TxtChannel.sendMessage(embBuilder.build()).complete();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
@@ -232,8 +240,8 @@ public class CommandListener extends ListenerAdapter {
 
                 try {
                     if (mySet2 != null && !mySet2.next()) {
-                        fl.Info(e, TxtChannel, "This may take up to 1min. Please wait before executing this command again", 40);
-                        int toPrint = getMessagesByUser(TxtChannel, user).size() - 1;
+                        fl.Info(e, TxtChannel, "This may take up to 1 min.", 40);
+                        toPrint = getMessagesByUser(TxtChannel, user).size() - 1;
                         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH:mm:ss");
                         String formattedDate = getMessagesByUser(TxtChannel, user).get(toPrint).getTimeCreated().format(myFormatObj);
                         try {
@@ -249,6 +257,7 @@ public class CommandListener extends ListenerAdapter {
                         System.out.println("user, firstMessage, configCount, likes, dislikes ) " + "\n" +
                                 "VALUES (" + user.getIdLong() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
                         fl.Success(e, "Succes", TxtChannel, "You have been succesfully registred. Your stats will now be tracked!", 200);
+                        server.addRoleToMember(e.getMember(), server.getRolesByName("Registred", true).get(0)).queue();
                     } else {
                         message.delete().complete();
                         fl.ErrorBuilder(e, TxtChannel, "You are already registerd", 10);
@@ -466,4 +475,34 @@ public class CommandListener extends ListenerAdapter {
                 .collect(Collectors.toList());
     }
 
+    public void registerUser(User user, TextChannel TxtChannel, Message message, Statement myStmt, int toPrint, GuildMessageReceivedEvent e) {
+        try {
+            ResultSet mySet2 = myStmt.executeQuery("SELECT *" + "\n" +
+                    "FROM Users u" + "\n" + "WHERE user = '" + message.getMentionedMembers().get(0).getId() + "';");
+            mySet2.beforeFirst();
+            if (!mySet2.next()) {
+                System.out.println(TxtChannel);
+                fl.Info(e, TxtChannel, "You are not yet registred. You will be automatically registred!", 10);
+                fl.Info(e, TxtChannel, "This may take up to 1 min. Please wait before executing this command again", 40);
+
+                toPrint = getMessagesByUser(TxtChannel, message.getMentionedMembers().get(0).getUser()).size() - 1;
+
+                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH:mm:ss");
+                String formattedDate = getMessagesByUser(TxtChannel, message.getMentionedMembers().get(0).getUser()).get(toPrint).getTimeCreated().format(myFormatObj);
+
+                if (message.getTextChannel().getName().equals("main-chat")) {
+                    System.out.println("user, firstMessage, configCount, likes, dislikes ) " + "\n" +
+                            "VALUES (" + message.getMentionedMembers().get(0).getUser().getId() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
+                    ResultSet mySet = myStmt.executeQuery("INSERT into Users (user, firstMessage, configCount, likes, dislikes ) " + "\n" +
+                            "VALUES (" + message.getMentionedMembers().get(0).getUser().getId() + ", " + "'" + formattedDate + "'" + ", " + 0 + ", " + 0 + ", " + 0 + ");");
+
+                } else {
+                    fl.Info(e, TxtChannel, "Please use this command ONCE in " + e.getGuild().getTextChannelsByName("main-chat", true).get(0).getAsMention() + "or use &register", 8);
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

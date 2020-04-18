@@ -6,8 +6,10 @@
 
     <groupId>de.mrcloud</groupId>
     <artifactId>ReisMinerBot</artifactId>
-    <version>Beta 0.5.3.1</version>
+    <version>Beta 0.5.5.1</version>
+    <packaging>jar</packaging>
     <build>
+        <finalName>Beta 0.5.5.1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
