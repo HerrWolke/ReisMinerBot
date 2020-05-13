@@ -1,6 +1,6 @@
 package de.mrcloud.listeners;
 
-import de.mrcloud.DataBaseTest;
+import de.mrcloud.SQL.DataBaseTest;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
@@ -63,12 +63,12 @@ public class FileListener extends ListenerAdapter {
 
                         }
 
-                        if (!server.getTextChannelsByName("config-download", true).isEmpty()) {
-                            configDownload = server.getTextChannelsByName("config-download", true).get(0);
+                        if (!server.getTextChannelsByName("📝│config-download", true).isEmpty()) {
+                            configDownload = server.getTextChannelsByName("📝│config-download", true).get(0);
 
                         } else {
-                            server.createTextChannel("config-download").complete();
-                            configDownload = server.getTextChannelsByName("config-download", true).get(0);
+                            server.createTextChannel("📝│config-download").complete();
+                            configDownload = server.getTextChannelsByName("📝│config-download", true).get(0);
 
                         }
                         if (!e.getMessage().getAttachments().isEmpty()) {

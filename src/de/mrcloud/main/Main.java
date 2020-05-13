@@ -22,8 +22,8 @@ public class Main {
         builder.addEventListeners(new CommandListener());
         builder.addEventListeners(new FileListener());
         builder.addEventListeners(new ReactionListener());
-        builder.addEventListeners(new UserRegistrationListener());
         builder.addEventListeners(new ShitResponder());
+        builder.addEventListeners(new Registerer());
         builder.setActivity(Activity.watching("your Configs -- By Mr Cloud#7895--"));
         builder.setMaxReconnectDelay(32);
         builder.setAutoReconnect(true);

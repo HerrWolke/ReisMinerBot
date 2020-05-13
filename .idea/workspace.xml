@@ -7,13 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6abd1c7-232c-423c-9170-ce3c47611aa0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/Registerer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/de/mrcloud/main/STATIC.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ReisMinerBot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ReisMinerBot.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/ReisMinerBot_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/ReisMinerBot_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/STATIC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/STATIC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/FileListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/FileListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/STATIC.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,7 +37,7 @@
           <entry key="MF" value="31" />
           <entry key="class" value="9" />
           <entry key="dummy" value="4" />
-          <entry key="java" value="18476" />
+          <entry key="java" value="20418" />
           <entry key="txt" value="152" />
           <entry key="xml" value="162" />
         </counts>
@@ -43,7 +45,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CLASS" value="9" />
-          <entry key="JAVA" value="18476" />
+          <entry key="JAVA" value="20418" />
           <entry key="Manifest" value="31" />
           <entry key="PLAIN_TEXT" value="156" />
           <entry key="XML" value="162" />
@@ -52,57 +54,60 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="MF" value="2" />
-          <entry key="class" value="14" />
+          <entry key="class" value="17" />
           <entry key="gitignore" value="1" />
-          <entry key="java" value="26" />
+          <entry key="java" value="62" />
           <entry key="txt" value="1" />
-          <entry key="xml" value="3" />
+          <entry key="xml" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="14" />
-          <entry key="JAVA" value="26" />
+          <entry key="CLASS" value="17" />
+          <entry key="JAVA" value="62" />
           <entry key="Manifest" value="2" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="XML" value="3" />
+          <entry key="XML" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="33" />
+          <entry key="project.closed" value="43" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.5" value="3" />
-          <entry key="project.open.time.6" value="11" />
-          <entry key="project.open.time.7" value="6" />
-          <entry key="project.open.time.8" value="9" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="33" />
+          <entry key="project.open.time.1" value="4" />
+          <entry key="project.open.time.10" value="2" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.5" value="4" />
+          <entry key="project.open.time.6" value="13" />
+          <entry key="project.open.time.7" value="7" />
+          <entry key="project.open.time.8" value="10" />
+          <entry key="project.open.time.9" value="3" />
+          <entry key="project.opened" value="45" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4403">
-              <caret line="272" column="13" selection-start-line="272" selection-start-column="13" selection-end-line="272" selection-end-column="13" />
+            <state relative-caret-position="1852">
+              <caret line="386" column="43" lean-forward="true" selection-start-line="386" selection-start-column="43" selection-end-line="386" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#setConfigsMessageAlreadyExists#0;class#CommandListener#0" />
+                <element signature="e#13911#13912#0" expanded="true" />
+                <element signature="e#13938#13939#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ShitResponder.java">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/Registerer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="25" column="111" selection-start-line="25" selection-start-column="111" selection-end-line="25" selection-end-column="111" />
+            <state relative-caret-position="-240">
+              <caret line="71" column="38" lean-forward="true" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,31 +118,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/FileListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1530">
-              <caret line="109" column="73" selection-start-line="109" selection-start-column="73" selection-end-line="109" selection-end-column="73" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="381">
+              <caret line="114" column="73" lean-forward="true" selection-start-line="114" selection-start-column="73" selection-end-line="114" selection-end-column="73" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="869">
-              <caret line="169" column="115" selection-start-line="169" selection-start-column="115" selection-end-line="169" selection-end-column="115" />
+            <state relative-caret-position="-1400">
+              <caret line="189" column="38" lean-forward="true" selection-start-line="189" selection-start-column="38" selection-end-line="189" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#14578#14579#0" expanded="true" />
-                <element signature="e#14605#14606#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/DataBaseTest.java">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ShitResponder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="29" lean-forward="true" selection-start-column="29" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/UserRegistrationListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/SQL/DataBaseTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
               <caret line="12" column="73" selection-start-line="12" selection-start-column="73" selection-end-line="12" selection-end-column="73" />
@@ -149,40 +167,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/mrcloud/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/STATIC.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="672">
+              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -214,7 +220,15 @@
       <find>likesRec</find>
       <find>toPr</find>
       <find>beforeF</find>
+      <find>config</find>
+      <find>main</find>
+      <find>config-download</find>
+      <find>equalsIg</find>
+      <find>SimpleDate</find>
     </findStrings>
+    <replaceStrings>
+      <replace>📝│config-download</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -230,15 +244,18 @@
         <option value="$PROJECT_DIR$/src/de/mrcloud/User.java" />
         <option value="$PROJECT_DIR$/src/de/mrcloud/Utils.java" />
         <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/UserRegistrationListener.java" />
-        <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java" />
         <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/ShitResponder.java" />
         <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/STATIC.java" />
-        <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/FileListener.java" />
-        <option value="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" />
         <option value="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/de/mrcloud/DataBaseTest.java" />
+        <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/FileListener.java" />
+        <option value="$PROJECT_DIR$/src/de/mrcloud/main/STATIC.java" />
+        <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/Registerer.java" />
+        <option value="$PROJECT_DIR$/src/de/mrcloud/SQL/DataBaseTest.java" />
         <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" />
+        <option value="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java" />
       </list>
     </option>
   </component>
@@ -249,11 +266,11 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="384" />
-    <option name="y" value="-8" />
-    <option name="width" value="1278" />
-    <option name="height" value="918" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
+    <option name="y" value="1" />
+    <option name="width" value="1859" />
+    <option name="height" value="982" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -320,14 +337,21 @@
               <item name="ReisMinerBot" type="b2602c69:ProjectViewProjectNode" />
               <item name="ReisMinerBot" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="mrcloud" type="462c0819:PsiDirectoryNode" />
+              <item name="SQL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ReisMinerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ReisMinerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="META-INF" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -338,8 +362,9 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="reisminerbot" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587158440793" />
-    <property name="last_opened_file_path" value="D:/DOWNLOADS/mariadb-java-client-2.5.4.jar!/" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589399996313" />
+    <property name="full.screen.before.presentation.mode" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15629742" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -365,11 +390,11 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="DataBaseTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="de.mrcloud.DataBaseTest" />
+      <option name="MAIN_CLASS_NAME" value="de.mrcloud.SQL.DataBaseTest" />
       <module name="ReisMinerBot" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="de.mrcloud.*" />
+          <option name="PATTERN" value="de.mrcloud.SQL.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -456,9 +481,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="1" width="1859" height="982" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21588486" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1684269" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -467,16 +493,16 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Repositories" order="7" weight="0.32995737" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3253796" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.35357916" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32429245" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5459906" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.329718" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Terminal" order="6" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.329718" />
+      <window_info anchor="bottom" id="TODO" order="8" weight="0.329718" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.329718" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.329718" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32900944" />
       <window_info anchor="bottom" id="SVN Repositories" order="11" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -488,7 +514,7 @@
       <window_info anchor="right" id="Maven Projects" order="7" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21375267" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14737406" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -498,7 +524,7 @@
       <window_info id="Repositories" order="7" weight="0.32995737" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3253796" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.35357916" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.35357916" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -599,13 +625,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../STATIC.class" />
-    <entry file="jar://D:/DOWNLOADS/JDA-4.1.1_113.jar!/net/dv8tion/jda/internal/requests/WebSocketClient.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="682" selection-start-line="682" selection-end-line="682" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/util/concurrent/ForkJoinPool.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -658,13 +677,6 @@
     <entry file="file://$PROJECT_DIR$/../Fahrzeugvermietung/src/de/marcus/Fahrzeugvermietung/Auto.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.sql/java/sql/ResultSet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-49564">
@@ -689,61 +701,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/User.java">
+    <entry file="jar://D:/DOWNLOADS/JDA-4.1.1_113.jar!/net/dv8tion/jda/api/hooks/InterfacedEventManager.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/UserRegistrationListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4403">
-          <caret line="272" column="13" selection-start-line="272" selection-start-column="13" selection-end-line="272" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ShitResponder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="25" column="111" selection-start-line="25" selection-start-column="111" selection-end-line="25" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/FileListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="109" column="73" selection-start-line="109" selection-start-column="73" selection-end-line="109" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/STATIC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="282">
+          <caret line="48" column="47" lean-forward="true" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
+        <state relative-caret-position="99">
           <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/DOWNLOADS/JDA-4.1.1_113.jar!/net/dv8tion/jda/api/events/message/guild/GuildMessageReceivedEvent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/DOWNLOADS/JDA-4.1.1_113.jar!/net/dv8tion/jda/internal/requests/WebSocketClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="813">
+          <caret line="698" selection-start-line="698" selection-end-line="698" />
         </state>
       </provider>
     </entry>
@@ -754,14 +736,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://D:/DOWNLOADS/JDA-4.1.1_113.jar!/net/dv8tion/jda/api/hooks/InterfacedEventManager.class">
+    <entry file="jar://D:/DOWNLOADS/JDA-4.1.1_113.jar!/net/dv8tion/jda/api/entities/User.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="48" column="47" lean-forward="true" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
+        <state relative-caret-position="676">
+          <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/DataBaseTest.java">
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/main/STATIC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ShitResponder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="29" lean-forward="true" selection-start-column="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/Registerer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-240">
+          <caret line="71" column="38" lean-forward="true" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/SQL/DataBaseTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="73" selection-start-line="12" selection-start-column="73" selection-end-line="12" selection-end-column="73" />
@@ -771,24 +791,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/UserRegistrationListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/mrcloud/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        <state relative-caret-position="672">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1400">
+          <caret line="189" column="38" lean-forward="true" selection-start-line="189" selection-start-column="38" selection-end-line="189" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/FileListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="114" column="73" lean-forward="true" selection-start-line="114" selection-start-column="73" selection-end-line="114" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="869">
-          <caret line="169" column="115" selection-start-line="169" selection-start-column="115" selection-end-line="169" selection-end-column="115" />
+        <state relative-caret-position="1852">
+          <caret line="386" column="43" lean-forward="true" selection-start-line="386" selection-start-column="43" selection-end-line="386" selection-end-column="43" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#14578#14579#0" expanded="true" />
-            <element signature="e#14605#14606#0" expanded="true" />
+            <element signature="method#setConfigsMessageAlreadyExists#0;class#CommandListener#0" />
+            <element signature="e#13911#13912#0" expanded="true" />
+            <element signature="e#13938#13939#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -799,7 +840,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>STATIC.:jar</last-edited>
+          <last-edited>ReisMinerBot:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

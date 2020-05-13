@@ -1,6 +1,6 @@
 package de.mrcloud.listeners;
 
-import de.mrcloud.DataBaseTest;
+import de.mrcloud.SQL.DataBaseTest;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
@@ -26,7 +26,7 @@ public class ReactionListener extends ListenerAdapter {
         //Checkt dass der User kein Bot ist
         if (!e.getUser().isBot()) {
             //Check dass die Nachricht aus dem richtigen Channel kommt
-            if (e.getChannel().getName().equalsIgnoreCase("config-download")) {
+            if (e.getChannel().getName().equalsIgnoreCase("\uD83D\uDCDD│config-download")) {
                 if (!isDisabled) {
                     System.out.println(isDisabled);
                     //Variablen
@@ -78,63 +78,134 @@ public class ReactionListener extends ListenerAdapter {
                             case "\uD83C\uDDE6":
                                 cmdListener.getFilesByName(configFile[1], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDE7":
                                 toGet = 2;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDE8":
                                 toGet = 3;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDE9":
                                 toGet = 4;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDEA":
                                 toGet = 5;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDEB":
                                 toGet = 6;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDEC":
                                 toGet = 7;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDED":
                                 toGet = 8;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDEE":
                                 toGet = 9;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                             case "\uD83C\uDDEF":
                                 toGet = 10;
                                 cmdListener.getFilesByName(configFile[toGet], txtChannel);
                                 CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF0":
+                                toGet = 11;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF1":
+                                toGet = 12;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF2":
+                                toGet = 13;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF3":
+                                toGet = 14;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF4":
+                                toGet = 15;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF5":
+                                toGet = 16;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF6":
+                                toGet = 17;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF7":
+                                toGet = 18;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF8":
+                                toGet = 19;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
+                                break;
+                            case "\\uD83C\\uDDF9":
+                                toGet = 20;
+                                cmdListener.getFilesByName(configFile[toGet], txtChannel);
+                                CommandListener.setConfigsMessageAlreadyExists(false);
+                                System.out.println(CommandListener.configsMessageAlreadyExists);
                                 break;
                         }
 
                         CommandListener.getMsg().delete().queue();
-
+                        CommandListener.setConfigsMessageAlreadyExists(false);
 
                         //noinspection EqualsBetweenInconvertibleTypes
 
                     }
                 }
-            }
-            if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
+            } else if (e.getChannel().getName().equalsIgnoreCase("\uD83D\uDCDD│public-configs")) {
+
+
                 String reacEmote = e.getReactionEmote().getName();
                 TextChannel txtChannel = e.getChannel();
                 CommandListener cmdListener = new CommandListener();
@@ -206,7 +277,7 @@ public class ReactionListener extends ListenerAdapter {
     public void onGuildMessageReactionRemove(@Nonnull GuildMessageReactionRemoveEvent e) {
         super.onGuildMessageReactionRemove(e);
 
-        if (e.getChannel().getName().equalsIgnoreCase("public-configs")) {
+        if (e.getChannel().getName().equalsIgnoreCase("\uD83D\uDCDD│config-download")) {
             String reacEmote = e.getReactionEmote().getName();
             TextChannel txtChannel = e.getChannel();
             CommandListener cmdListener = new CommandListener();
